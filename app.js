@@ -1,8 +1,18 @@
-document.getElementById('loan-form').addEventListener('submit', calculateResults);
+document.getElementById('loan-form').addEventListener('submit', function(e){
+  
 
+    //hide UI results
+    document.getElementById('results').style.display = 'none';
 
-function calculateResults(e) {
+    //show loader
+    document.getElementById('loading').style.display = 'block';
+    
+    setTimeout(calculateResults,2000);
     e.preventDefault();
+});
+
+
+function calculateResults() {
     
     const amount = document.getElementById('amount')
     const interest = document.getElementById('interest');
@@ -29,15 +39,25 @@ function calculateResults(e) {
         totalPayment.value = (monthly * calculatedPayments).toFixed(2);
         totalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(2);
         
+        //show UI results
+        document.getElementById('results').style.display = 'block';
+
+        //hide loader
+        document.getElementById('loading').style.display = 'none';
     }else {
+        
         const alert = document.getElementById('alert'); 
         alert.style.display = 'block'; 
+        setTimeout("hideDiv()",3000);
+
+         //hide loader
+        document.getElementById('loading').style.display = 'none';
     }
-  
 }
 
 function hideDiv() {
+    document.getElementById('results').style.display = 'none';
+   
     const alert = document.getElementById('alert'); 
     alert.style.display = 'none'; 
 }
-setTimeout("hideDiv()",5000);
